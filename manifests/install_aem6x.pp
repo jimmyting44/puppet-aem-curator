@@ -1,5 +1,6 @@
-define aem_curator::install_aem62(
+define aem_curator::install_aem6x (
   $aem_artifacts_base,
+  $aem_version_number,
   $aem_healthcheck_version,
   $aem_port,
   $run_mode,
@@ -8,7 +9,7 @@ define aem_curator::install_aem62(
   $aem_id                  = 'aem',
   $aem_jvm_mem_opts        = '-Xss4m -Xmx8192m',
   $aem_sample_content      = false,
-  $aem_jvm_opts                = [
+  $aem_jvm_opts            = [
     '-XX:+PrintGCDetails',
     '-XX:+PrintGCTimeStamps',
     '-XX:+PrintGCDateStamps',
@@ -22,7 +23,7 @@ define aem_curator::install_aem62(
   # Retrieve the license file
   archive { "${aem_base}/aem/${aem_id}/license.properties":
     ensure  => present,
-    source  => "${aem_artifacts_base}/license-6.2.properties",
+    source  => "${aem_artifacts_base}/license-6.${aem_version_number}.properties",
     cleanup => false,
     require => File["${aem_base}/aem/${aem_id}"],
   } -> file { "${aem_base}/aem/${aem_id}/license.properties":
@@ -35,7 +36,7 @@ define aem_curator::install_aem62(
   # Retrieve the cq-quickstart jar
   archive { "${aem_base}/aem/${aem_id}/aem-${run_mode}-${aem_port}.jar":
     ensure  => present,
-    source  => "${aem_artifacts_base}/AEM_6.2_Quickstart.jar",
+    source  => "${aem_artifacts_base}/AEM_6.${aem_version_number}_Quickstart.jar",
     cleanup => false,
     require => File["${aem_base}/aem/${aem_id}"],
   } -> file { "${aem_base}/aem/${aem_id}/aem-${run_mode}-${aem_port}.jar":
@@ -51,8 +52,9 @@ define aem_curator::install_aem62(
   # starts up.
   archive { "${tmp_dir}/${aem_id}/aem-healthcheck-content-${aem_healthcheck_version}.zip":
     ensure => present,
-    source => "http://central.maven.org/maven2/com/shinesolutions/aem-healthcheck-content/${aem_healthcheck_version}/aem-healthcheck-content-${aem_healthcheck_version}.zip",
-  } -> aem::crx::package { "${aem_id}: aem-healthcheck" :
+    source => "http://central.maven.org/maven2/com/shinesolutions/aem-healthcheck-content/${aem_healthcheck_version}
+      /aem-healthcheck-content-${aem_healthcheck_version}.zip",
+  } -> aem::crx::package { "${aem_id}: aem-healthcheck":
     ensure => present,
     type   => 'file',
     home   => "${aem_base}/aem/${aem_id}",
