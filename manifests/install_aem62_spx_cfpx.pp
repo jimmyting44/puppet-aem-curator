@@ -58,7 +58,7 @@ define aem_curator::install_aem62_spx_cfpx (
     file_name       => "AEM-6.2-Service-Pack-1-6.2.SP${sp_version_number}.zip",
     package_name    => 'aem-service-pkg',
     package_group   => 'adobe/cq620/servicepack',
-    package_version => '6.2.SP${sp_version_number}',
+    package_version => "6.2.SP${sp_version_number}",
     artifacts_base  => $aem_artifacts_base,
     aem_id          => $aem_id,
   } -> aem_curator::install_aem_package { "${aem_id}: Install cumulative fix pack ${cfp_version_number}":
