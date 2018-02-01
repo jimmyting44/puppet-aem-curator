@@ -44,8 +44,8 @@ define aem_curator::install_aem63_spx_cfpx (
     aem_id          => $aem_id,
   } -> aem_curator::install_aem_package { "${aem_id}: Install cumulative fix pack ${cfp_version_number}":
     tmp_dir                 => $tmp_dir,
-    file_name               => "AEM-6.3-SP${sp_version_number}-CFP${cfp_version_number}-${cfp_version_number}.0.zip",
-    package_name            => "cq-6.3.0-sp${sp_version_number}-cfp",
+    file_name               => "AEM-CFP-6.3.${sp_version_number}.${cfp_version_number}-${cfp_version_number}.0.zip",
+    package_name            => "aem-6.3.${sp_version_number}-cfp",
     package_group           => 'adobe/cq630/cumulativefixpack',
     post_install_sleep_secs => 900,
     package_version         => "${cfp_version_number}.0",
