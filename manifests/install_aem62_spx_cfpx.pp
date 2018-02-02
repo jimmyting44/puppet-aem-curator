@@ -21,8 +21,6 @@ define aem_curator::install_aem62_spx_cfpx (
   $post_install_sleep_secs = 120,
 ) {
 
-  notice("Installing cfp AEM-6.2-SP${sp_version_number}-CFP${cfp_version_number}-${cfp_version_number}.0.zip")
-
   aem_curator::install_aem6x { "${aem_id}: Install AEM":
     tmp_dir                 => $tmp_dir,
     run_mode                => $run_mode,

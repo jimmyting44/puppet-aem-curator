@@ -108,7 +108,7 @@ define aem_curator::install_aem_profile (
     }
   } else {
     # no service pack to install, just install plain aem6x.
-    aem_curator::install_aem6x { "${aem_id}: Installing AEM profile ${aem_profile}":
+    aem_curator::install_aem6x { "${aem_id}: Install AEM profile ${aem_profile}":
       aem_artifacts_base      => $aem_artifacts_base,
       aem_version_number      => $aem_version[-1],
       aem_base                => $aem_base,
